@@ -43,8 +43,33 @@ struct MarineColors {
     static let lightText = Color(hex: "#0B2040")
 }
 
-// MARK: - Color Extension
 
+struct IssuesBackground: View {
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack {
+                Color.black.ignoresSafeArea()
+                Image("back_issues")
+                    .resizable().scaledToFill()
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+                    .ignoresSafeArea()
+                    .blur(radius: 2)
+                    .opacity(0.8)
+                
+                aa
+            }
+        }
+        .ignoresSafeArea()
+    }
+    
+    private var aa: some View {
+        ZStack {
+            Image("aa")
+                .resizable()
+                .frame(width: 250, height: 220)
+        }
+    }
+}
 extension Color {
     init(hex: String) {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)

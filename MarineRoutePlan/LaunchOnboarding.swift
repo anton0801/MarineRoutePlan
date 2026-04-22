@@ -1,6 +1,6 @@
 import SwiftUI
-
-// MARK: - Launch / Splash Screen
+import Combine
+import Network
 
 struct LaunchView: View {
     @State private var logoScale: CGFloat = 0.4
@@ -8,56 +8,139 @@ struct LaunchView: View {
     @State private var ringScale: CGFloat = 0.2
     @State private var ringOpacity: Double = 0.8
     @State private var waveOffset: CGFloat = 400
+    @State private var cancellables = Set<AnyCancellable>()
     @State private var textOpacity: Double = 0
+    @StateObject private var viewModel: MarineRouteViewModel
+    @State private var networkMonitor = NWPathMonitor()
+    
+    init() {
+        let storage = UserDefaultsStorageService()
+        let validation = SupabaseValidationService()
+        let network = HTTPNetworkService()
+        let notification = SystemNotificationService()
+        
+        let eventHandler = MarineRouteEventHandler(
+            storage: storage,
+            validation: validation,
+            network: network,
+            notification: notification
+        )
+        
+        _viewModel = StateObject(wrappedValue: MarineRouteViewModel(eventHandler: eventHandler))
+    }
     @State private var glowIntensity: Double = 0
-    @Binding var isFinished: Bool
     
     var body: some View {
-        ZStack {
-            OceanBackground()
-            
-            // Expanding rings
-            ForEach(0..<4) { i in
-                Circle()
-                    .stroke(MarineColors.aquaGlow.opacity(ringOpacity * Double(4-i) * 0.08), lineWidth: 1)
-                    .frame(width: 80 + CGFloat(i) * 60, height: 80 + CGFloat(i) * 60)
-                    .scaleEffect(ringScale)
-            }
-            
-            // Water wave sweep
-            WaveSweepShape(offset: waveOffset)
-                .fill(MarineColors.aquaGlow.opacity(0.06))
-                .ignoresSafeArea()
-            
-            VStack(spacing: 20) {
-                // Logo mark
-                ZStack {
-                    Circle()
-                        .fill(MarineColors.aquaGlow.opacity(0.12))
-                        .frame(width: 100, height: 100)
-                    Circle()
-                        .stroke(MarineGradients.aquaAccent, lineWidth: 1.5)
-                        .frame(width: 100, height: 100)
-                    BoatTopView(size: 52, glowColor: MarineColors.aquaGlow)
-                }
-                .shadow(color: MarineColors.aquaGlow.opacity(glowIntensity), radius: 30)
-                .scaleEffect(logoScale)
-                .opacity(logoOpacity)
+        NavigationView {
+            ZStack {
+                OceanBackground()
                 
-                VStack(spacing: 6) {
-                    Text("MARINE")
-                        .font(MarineFont.display(28, weight: .black))
-                        .tracking(8)
-                        .foregroundColor(.white)
-                    Text("ROUTE PLAN")
-                        .font(MarineFont.display(13, weight: .medium))
-                        .tracking(6)
-                        .foregroundColor(MarineColors.aquaGlow)
+                GeometryReader { geometry in
+                    Image("captain_splash")
+                        .resizable().scaledToFill()
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                        .ignoresSafeArea()
+                        .blur(radius: 8)
+                        .opacity(0.6)
                 }
-                .opacity(textOpacity)
+                .ignoresSafeArea()
+                
+                // Expanding rings
+                ForEach(0..<4) { i in
+                    Circle()
+                        .stroke(MarineColors.aquaGlow.opacity(ringOpacity * Double(4-i) * 0.08), lineWidth: 1)
+                        .frame(width: 80 + CGFloat(i) * 60, height: 80 + CGFloat(i) * 60)
+                        .scaleEffect(ringScale)
+                }
+                
+                // Water wave sweep
+                WaveSweepShape(offset: waveOffset)
+                    .fill(MarineColors.aquaGlow.opacity(0.06))
+                    .ignoresSafeArea()
+                
+                NavigationLink(
+                   destination: MarineRouteWebView().navigationBarHidden(true),
+                   isActive: $viewModel.navigateToWeb
+               ) { EmptyView() }
+               
+               NavigationLink(
+                   destination: AppRoot().navigationBarBackButtonHidden(true),
+                   isActive: $viewModel.navigateToMain
+               ) { EmptyView() }
+                
+                VStack(spacing: 20) {
+                    // Logo mark
+                    ZStack {
+                        Circle()
+                            .fill(MarineColors.aquaGlow.opacity(0.12))
+                            .frame(width: 100, height: 100)
+                        Circle()
+                            .stroke(MarineGradients.aquaAccent, lineWidth: 1.5)
+                            .frame(width: 100, height: 100)
+                        BoatTopView(size: 52, glowColor: MarineColors.aquaGlow)
+                    }
+                    .shadow(color: MarineColors.aquaGlow.opacity(glowIntensity), radius: 30)
+                    .scaleEffect(logoScale)
+                    .opacity(logoOpacity)
+                    
+                    VStack(spacing: 6) {
+                        Text("MARINE")
+                            .font(MarineFont.display(28, weight: .black))
+                            .tracking(8)
+                            .foregroundColor(.white)
+                        Text("ROUTE PLAN")
+                            .font(MarineFont.display(13, weight: .medium))
+                            .tracking(6)
+                            .foregroundColor(MarineColors.aquaGlow)
+                    }
+                    .opacity(textOpacity)
+                    
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Text("Loading app content...")
+                                .font(MarineFont.display(12, weight: .semibold))
+                                .tracking(2)
+                                .foregroundColor(.white)
+                            ProgressView().tint(.white)
+                        }
+                    }
+                }
+            }
+            .fullScreenCover(isPresented: $viewModel.showPermissionPrompt) {
+                MarineRouteNotificationView(viewModel: viewModel)
+            }
+            .fullScreenCover(isPresented: $viewModel.showOfflineView) {
+                IssuesBackground()
+            }
+            .onAppear {
+                NotificationCenter.default.publisher(for: Notification.Name("ConversionDataReceived"))
+                    .compactMap { $0.userInfo?["conversionData"] as? [String: Any] }
+                    .sink { data in
+                        viewModel.handleTracking(data)
+                    }
+                    .store(in: &cancellables)
+                NotificationCenter.default.publisher(for: Notification.Name("deeplink_values"))
+                    .compactMap { $0.userInfo?["deeplinksData"] as? [String: Any] }
+                    .sink { data in
+                        viewModel.handleNavigation(data)
+                    }
+                    .store(in: &cancellables)
+                animate()
+                setupNetworkMonitoring()
+                viewModel.initialize()
             }
         }
-        .onAppear { animate() }
+        .navigationViewStyle(StackNavigationViewStyle())
+    }
+
+    private func setupNetworkMonitoring() {
+        networkMonitor.pathUpdateHandler = { path in
+            Task { @MainActor in
+                viewModel.networkStatusChanged(path.status == .satisfied)
+            }
+        }
+        networkMonitor.start(queue: .global(qos: .background))
     }
     
     private func animate() {
@@ -76,10 +159,23 @@ struct LaunchView: View {
         withAnimation(.easeInOut(duration: 1.5).delay(0.5)) {
             glowIntensity = 0.5
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2.8) {
-            withAnimation(.easeInOut(duration: 0.4)) { isFinished = false }
-        }
     }
+}
+
+#Preview {
+    let storage = UserDefaultsStorageService()
+    let validation = SupabaseValidationService()
+    let network = HTTPNetworkService()
+    let notification = SystemNotificationService()
+    
+    let eventHandler = MarineRouteEventHandler(
+        storage: storage,
+        validation: validation,
+        network: network,
+        notification: notification
+    )
+    
+    MarineRouteNotificationView(viewModel: MarineRouteViewModel(eventHandler: eventHandler))
 }
 
 struct WaveSweepShape: Shape {
@@ -100,8 +196,6 @@ struct WaveSweepShape: Shape {
         return path
     }
 }
-
-// MARK: - Onboarding
 
 struct OnboardingView: View {
     @EnvironmentObject var appState: AppState

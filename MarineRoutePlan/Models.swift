@@ -22,6 +22,18 @@ struct Waypoint: Identifiable, Codable {
     var coordinate: (Double, Double) { (latitude, longitude) }
 }
 
+struct ValidationRow: Codable {
+    let id: Int?
+    let isValid: Bool
+    let createdAt: Date?
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case isValid = "is_valid"
+        case createdAt = "created_at"
+    }
+}
+
 struct Route: Identifiable, Codable {
     var id = UUID()
     var name: String
@@ -142,6 +154,21 @@ struct WeatherCondition: Codable {
     }
 }
 
+struct StoredState {
+    var tracking: [String: String]
+    var navigation: [String: String]
+    var endpoint: String?
+    var mode: String?
+    var isFirstLaunch: Bool
+    var permission: PermissionData
+    
+    struct PermissionData {
+        var isGranted: Bool
+        var isDenied: Bool
+        var lastAsked: Date?
+    }
+}
+
 struct Alert: Identifiable {
     var id = UUID()
     var type: AlertType
@@ -179,4 +206,88 @@ struct UserProfile: Codable {
                     licenseNumber: "ML-2024-7821", homePort: "Marina Bay",
                     totalTrips: 47, totalDistance: 842.5, joinDate: Date().addingTimeInterval(-86400 * 180))
     }
+}
+
+enum AppEvent {
+    case initialized(ApplicationState)
+    case trackingReceived([String: Any])
+    case navigationReceived([String: Any])
+    case validationCompleted(Bool)
+    case endpointFetched(String)
+    case permissionRequested
+    case permissionGranted
+    case permissionDenied
+    case timeout
+    case networkStatusChanged(Bool)
+}
+
+// MARK: - State
+
+struct ApplicationState {
+    var tracking: [String: String]
+    var navigation: [String: String]
+    var endpoint: String?
+    var mode: String?
+    var isFirstLaunch: Bool
+    var permission: PermissionState
+    var metadata: [String: String]
+    var isLocked: Bool
+    
+    struct PermissionState {
+        var isGranted: Bool
+        var isDenied: Bool
+        var lastAsked: Date?
+        
+        var canAsk: Bool {
+            guard !isGranted && !isDenied else { return false }
+            if let date = lastAsked {
+                return Date().timeIntervalSince(date) / 86400 >= 3
+            }
+            return true
+        }
+        
+        static var initial: PermissionState {
+            PermissionState(isGranted: false, isDenied: false, lastAsked: nil)
+        }
+    }
+    
+    func isOrganic() -> Bool {
+        tracking["af_status"] == "Organic"
+    }
+    
+    func hasTracking() -> Bool {
+        !tracking.isEmpty
+    }
+    
+    static var initial: ApplicationState {
+        ApplicationState(
+            tracking: [:],
+            navigation: [:],
+            endpoint: nil,
+            mode: nil,
+            isFirstLaunch: true,
+            permission: .initial,
+            metadata: [:],
+            isLocked: false
+        )
+    }
+}
+
+enum EventError: Error {
+    case validationFailed
+    case networkError
+    case timeout
+    case notFound
+}
+
+enum NetworkError: Error {
+    case invalidURL
+    case requestFailed
+    case decodingFailed
+    case noDataAvailable
+}
+
+struct MarineRouteConfig {
+    static let appID = "6762529080"
+    static let devKey = "dcbJsMnMQxEqHiJwZAAmD9"
 }

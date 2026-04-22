@@ -8,11 +8,43 @@
 
 /* Begin PBXBuildFile section */
 		8F41C8592F94016800319557 /* codemagic.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 8F41C8582F94016400319557 /* codemagic.yaml */; };
+		8F7D3DDE2F97D45B00A2568D /* AppsFlyerLib in Frameworks */ = {isa = PBXBuildFile; productRef = 8F7D3DDD2F97D45B00A2568D /* AppsFlyerLib */; };
+		8F7D3DE12F97D46F00A2568D /* PostgREST in Frameworks */ = {isa = PBXBuildFile; productRef = 8F7D3DE02F97D46F00A2568D /* PostgREST */; };
+		8F7D3DE32F97D46F00A2568D /* Supabase in Frameworks */ = {isa = PBXBuildFile; productRef = 8F7D3DE22F97D46F00A2568D /* Supabase */; };
+		8F7D3DE62F97D49D00A2568D /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 8F7D3DE52F97D49D00A2568D /* FirebaseCore */; };
+		8F7D3DE82F97D49D00A2568D /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 8F7D3DE72F97D49D00A2568D /* FirebaseMessaging */; };
+		8F7D3DF42F97D4E400A2568D /* MarinePlanningNotifications.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8F7D3DED2F97D4E400A2568D /* MarinePlanningNotifications.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8F7D3DFC2F97D4EF00A2568D /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 8F7D3DFB2F97D4EF00A2568D /* FirebaseMessaging */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8F7D3DF22F97D4E400A2568D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8F677EA82F8837A500BA1736 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8F7D3DEC2F97D4E400A2568D;
+			remoteInfo = MarinePlanningNotifications;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8F7D3DF92F97D4E400A2568D /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8F7D3DF42F97D4E400A2568D /* MarinePlanningNotifications.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8F41C8582F94016400319557 /* codemagic.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = codemagic.yaml; sourceTree = "<group>"; };
 		8F677EB02F8837A500BA1736 /* MarineRoutePlan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MarineRoutePlan.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F7D3DED2F97D4E400A2568D /* MarinePlanningNotifications.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MarinePlanningNotifications.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -22,6 +54,13 @@
 				Info.plist,
 			);
 			target = 8F677EAF2F8837A500BA1736 /* MarineRoutePlan */;
+		};
+		8F7D3DF82F97D4E400A2568D /* Exceptions for "MarinePlanningNotifications" folder in "MarinePlanningNotifications" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 8F7D3DEC2F97D4E400A2568D /* MarinePlanningNotifications */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -34,6 +73,14 @@
 			path = MarineRoutePlan;
 			sourceTree = "<group>";
 		};
+		8F7D3DEE2F97D4E400A2568D /* MarinePlanningNotifications */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8F7D3DF82F97D4E400A2568D /* Exceptions for "MarinePlanningNotifications" folder in "MarinePlanningNotifications" target */,
+			);
+			path = MarinePlanningNotifications;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +88,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F7D3DE12F97D46F00A2568D /* PostgREST in Frameworks */,
+				8F7D3DDE2F97D45B00A2568D /* AppsFlyerLib in Frameworks */,
+				8F7D3DE82F97D49D00A2568D /* FirebaseMessaging in Frameworks */,
+				8F7D3DE62F97D49D00A2568D /* FirebaseCore in Frameworks */,
+				8F7D3DE32F97D46F00A2568D /* Supabase in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F7D3DEA2F97D4E400A2568D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F7D3DFC2F97D4EF00A2568D /* FirebaseMessaging in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +112,8 @@
 			children = (
 				8F41C8582F94016400319557 /* codemagic.yaml */,
 				8F677EB22F8837A500BA1736 /* MarineRoutePlan */,
+				8F7D3DEE2F97D4E400A2568D /* MarinePlanningNotifications */,
+				8F7D3DFA2F97D4EF00A2568D /* Frameworks */,
 				8F677EB12F8837A500BA1736 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,8 +122,16 @@
 			isa = PBXGroup;
 			children = (
 				8F677EB02F8837A500BA1736 /* MarineRoutePlan.app */,
+				8F7D3DED2F97D4E400A2568D /* MarinePlanningNotifications.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		8F7D3DFA2F97D4EF00A2568D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,20 +144,50 @@
 				8F677EAC2F8837A500BA1736 /* Sources */,
 				8F677EAD2F8837A500BA1736 /* Frameworks */,
 				8F677EAE2F8837A500BA1736 /* Resources */,
+				8F7D3DF92F97D4E400A2568D /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8F7D3DF32F97D4E400A2568D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				8F677EB22F8837A500BA1736 /* MarineRoutePlan */,
 			);
 			name = MarineRoutePlan;
 			packageProductDependencies = (
+				8F7D3DDD2F97D45B00A2568D /* AppsFlyerLib */,
+				8F7D3DE02F97D46F00A2568D /* PostgREST */,
+				8F7D3DE22F97D46F00A2568D /* Supabase */,
+				8F7D3DE52F97D49D00A2568D /* FirebaseCore */,
+				8F7D3DE72F97D49D00A2568D /* FirebaseMessaging */,
 			);
 			productName = MarineRoutePlan;
 			productReference = 8F677EB02F8837A500BA1736 /* MarineRoutePlan.app */;
 			productType = "com.apple.product-type.application";
+		};
+		8F7D3DEC2F97D4E400A2568D /* MarinePlanningNotifications */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F7D3DF52F97D4E400A2568D /* Build configuration list for PBXNativeTarget "MarinePlanningNotifications" */;
+			buildPhases = (
+				8F7D3DE92F97D4E400A2568D /* Sources */,
+				8F7D3DEA2F97D4E400A2568D /* Frameworks */,
+				8F7D3DEB2F97D4E400A2568D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				8F7D3DEE2F97D4E400A2568D /* MarinePlanningNotifications */,
+			);
+			name = MarinePlanningNotifications;
+			packageProductDependencies = (
+				8F7D3DFB2F97D4EF00A2568D /* FirebaseMessaging */,
+			);
+			productName = MarinePlanningNotifications;
+			productReference = 8F7D3DED2F97D4E400A2568D /* MarinePlanningNotifications.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -103,6 +203,9 @@
 						CreatedOnToolsVersion = 16.4;
 						LastSwiftMigration = 1640;
 					};
+					8F7D3DEC2F97D4E400A2568D = {
+						CreatedOnToolsVersion = 16.4;
+					};
 				};
 			};
 			buildConfigurationList = 8F677EAB2F8837A500BA1736 /* Build configuration list for PBXProject "MarineRoutePlan" */;
@@ -114,12 +217,18 @@
 			);
 			mainGroup = 8F677EA72F8837A500BA1736;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8F7D3DDC2F97D45B00A2568D /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */,
+				8F7D3DDF2F97D46F00A2568D /* XCRemoteSwiftPackageReference "supabase-swift" */,
+				8F7D3DE42F97D49D00A2568D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 8F677EB12F8837A500BA1736 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				8F677EAF2F8837A500BA1736 /* MarineRoutePlan */,
+				8F7D3DEC2F97D4E400A2568D /* MarinePlanningNotifications */,
 			);
 		};
 /* End PBXProject section */
@@ -133,6 +242,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8F7D3DEB2F97D4E400A2568D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -143,7 +259,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		8F7D3DE92F97D4E400A2568D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8F7D3DF32F97D4E400A2568D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8F7D3DEC2F97D4E400A2568D /* MarinePlanningNotifications */;
+			targetProxy = 8F7D3DF22F97D4E400A2568D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		8F677EBA2F8837A700BA1736 /* Debug */ = {
@@ -274,6 +405,7 @@
 				INFOPLIST_FILE = MarineRoutePlan/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Marine Route Plan";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Allow to use this feature in this application";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Marine Route Plan may request access to certain device-level signals to support route calculations and ensure dependable navigation behavior within the app. This information is used exclusively to maintain system integrity, validate feature performance, and improve operational consistency. It is not used to follow your activity outside the app, create user profiles, or share data with external advertising networks";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -288,7 +420,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.3;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.routingPlansd.MarineRoutePlan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -317,6 +449,7 @@
 				INFOPLIST_FILE = MarineRoutePlan/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Marine Route Plan";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Allow to use this feature in this application";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Marine Route Plan may request access to certain device-level signals to support route calculations and ensure dependable navigation behavior within the app. This information is used exclusively to maintain system integrity, validate feature performance, and improve operational consistency. It is not used to follow your activity outside the app, create user profiles, or share data with external advertising networks";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -331,7 +464,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 15.3;
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.routingPlansd.MarineRoutePlan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
@@ -342,6 +475,67 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				XROS_DEPLOYMENT_TARGET = 2.5;
+			};
+			name = Release;
+		};
+		8F7D3DF62F97D4E400A2568D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MarinePlanningNotifications/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MarinePlanningNotifications;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.routingPlansd.MarineRoutePlan.MarinePlanningNotifications;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8F7D3DF72F97D4E400A2568D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MarinePlanningNotifications/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MarinePlanningNotifications;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.routingPlansd.MarineRoutePlan.MarinePlanningNotifications;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -366,7 +560,76 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		8F7D3DF52F97D4E400A2568D /* Build configuration list for PBXNativeTarget "MarinePlanningNotifications" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F7D3DF62F97D4E400A2568D /* Debug */,
+				8F7D3DF72F97D4E400A2568D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8F7D3DDC2F97D45B00A2568D /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppsFlyerSDK/AppsFlyerFramework";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.18.0;
+			};
+		};
+		8F7D3DDF2F97D46F00A2568D /* XCRemoteSwiftPackageReference "supabase-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/supabase/supabase-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.1;
+			};
+		};
+		8F7D3DE42F97D49D00A2568D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.12.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8F7D3DDD2F97D45B00A2568D /* AppsFlyerLib */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F7D3DDC2F97D45B00A2568D /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */;
+			productName = AppsFlyerLib;
+		};
+		8F7D3DE02F97D46F00A2568D /* PostgREST */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F7D3DDF2F97D46F00A2568D /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = PostgREST;
+		};
+		8F7D3DE22F97D46F00A2568D /* Supabase */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F7D3DDF2F97D46F00A2568D /* XCRemoteSwiftPackageReference "supabase-swift" */;
+			productName = Supabase;
+		};
+		8F7D3DE52F97D49D00A2568D /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F7D3DE42F97D49D00A2568D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		8F7D3DE72F97D49D00A2568D /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F7D3DE42F97D49D00A2568D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		8F7D3DFB2F97D4EF00A2568D /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F7D3DE42F97D49D00A2568D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8F677EA82F8837A500BA1736 /* Project object */;
 }
